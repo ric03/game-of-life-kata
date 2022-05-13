@@ -1,13 +1,15 @@
 package org.example;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 @AllArgsConstructor
-public enum CellState {
-    ALIVE('*'),
-    DEAD('.');
+public class Position {
 
-    private final char sign;
+    private int x;
+
+    private int y;
 }

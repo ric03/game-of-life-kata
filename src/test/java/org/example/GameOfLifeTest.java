@@ -22,10 +22,11 @@ class GameOfLifeTest {
     private static final Position RIGHT_CENTER = new Position(2, 1);
     private static final Position RIGHT_BOTTOM = new Position(2, 2);
 
-    GameOfLife uut = new GameOfLife();
+    GameOfLife uut;
 
     @BeforeEach
     void setup() {
+        uut = new GameOfLife();
         uut.grid.createGrid(3, 3);
     }
 

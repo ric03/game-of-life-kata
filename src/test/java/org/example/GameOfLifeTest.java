@@ -55,7 +55,7 @@ class GameOfLifeTest {
     void whenGetCellStateForNextGeneration_withFewerThanTwoLiveNeighbors_thenAnyLifeCellDies(Position positionOfSurroundingLiveCell) {
         // Arrange
         uut.grid.setLiveCell(positionOfSurroundingLiveCell.getX(), positionOfSurroundingLiveCell.getY());
-        uut.grid.setLiveCell(1, 1);
+        uut.grid.setLiveCell(CENTER.getX(), CENTER.getY());
 
         // Act
         var cellStateInNextGeneration = uut.getCellStateForNextGeneration(1, 1);
@@ -78,7 +78,7 @@ class GameOfLifeTest {
         for (var pos : positionsOfSurroundingLiveCells) {
             uut.grid.setLiveCell(pos.getX(), pos.getY());
         }
-        uut.grid.setLiveCell(1, 1);
+        uut.grid.setLiveCell(CENTER.getX(), CENTER.getY());
         // Act
         var cellStateInNextGeneration = uut.getCellStateForNextGeneration(1, 1);
         // Assert
@@ -101,7 +101,7 @@ class GameOfLifeTest {
         for (var pos : positionsOfSurroundingLiveCells) {
             uut.grid.setLiveCell(pos.getX(), pos.getY());
         }
-        uut.grid.setLiveCell(1, 1);
+        uut.grid.setLiveCell(CENTER.getX(), CENTER.getY());
 
         // Act
         var cellStateInNextGeneration = uut.getCellStateForNextGeneration(1, 1);

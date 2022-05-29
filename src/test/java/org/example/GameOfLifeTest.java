@@ -57,9 +57,9 @@ class GameOfLifeTest {
         uut.grid.setLiveCell(1, 1);
 
         // Act
-        var isCellAliveInNextGeneration = uut.getCellStateForNextGeneration(1, 1);
+        var cellStateInNextGeneration = uut.getCellStateForNextGeneration(1, 1);
         // Assert
-        assertThat(isCellAliveInNextGeneration).isEqualTo(CellState.DEAD);
+        assertThat(cellStateInNextGeneration).isEqualTo(CellState.DEAD);
     }
 
 
@@ -72,16 +72,16 @@ class GameOfLifeTest {
 
     @ParameterizedTest
     @MethodSource
-    void whenGetCellStateForNextGeneration_withMoreThanThreeLiveNeighbors_thenCellDies(List<Position> positionsOfsurroundingLiveCells) {
+    void whenGetCellStateForNextGeneration_withMoreThanThreeLiveNeighbors_thenCellDies(List<Position> positionsOfSurroundingLiveCells) {
         // Arrange
-        for (var pos : positionsOfsurroundingLiveCells) {
+        for (var pos : positionsOfSurroundingLiveCells) {
             uut.grid.setLiveCell(pos.getX(), pos.getY());
         }
         uut.grid.setLiveCell(1, 1);
         // Act
-        var isCellAliveInNextGeneration = uut.getCellStateForNextGeneration(1, 1);
+        var cellStateInNextGeneration = uut.getCellStateForNextGeneration(1, 1);
         // Assert
-        assertThat(isCellAliveInNextGeneration).isEqualTo(CellState.DEAD);
+        assertThat(cellStateInNextGeneration).isEqualTo(CellState.DEAD);
     }
 
     static Stream<List<Position>> whenGetCellStateForNextGeneration_withTwoLiveNeighbors_thenCellLivesOn() {
@@ -103,9 +103,9 @@ class GameOfLifeTest {
         uut.grid.setLiveCell(1, 1);
 
         // Act
-        var isCellAliveInNextGeneration = uut.getCellStateForNextGeneration(1, 1);
+        var cellStateInNextGeneration = uut.getCellStateForNextGeneration(1, 1);
         // Assert
-        assertThat(isCellAliveInNextGeneration).isEqualTo(CellState.ALIVE);
+        assertThat(cellStateInNextGeneration).isEqualTo(CellState.ALIVE);
     }
 
     @Test
@@ -117,9 +117,9 @@ class GameOfLifeTest {
         uut.grid.setLiveCell(1, 1);
 
         // Act
-        var isCellAliveInNextGeneration = uut.getCellStateForNextGeneration(1, 1);
+        var cellStateInNextGeneration = uut.getCellStateForNextGeneration(1, 1);
         // Assert
-        assertThat(isCellAliveInNextGeneration).isEqualTo(CellState.ALIVE);
+        assertThat(cellStateInNextGeneration).isEqualTo(CellState.ALIVE);
     }
 
     @Test
@@ -142,8 +142,8 @@ class GameOfLifeTest {
         uut.grid.setLiveCell(0, 1);
 
         // Act
-        var isCellAliveInNextGeneration = uut.getCellStateForNextGeneration(1, 1);
+        var cellStateInNextGeneration = uut.getCellStateForNextGeneration(1, 1);
         // Assert
-        assertThat(isCellAliveInNextGeneration).isEqualTo(CellState.DEAD);
+        assertThat(cellStateInNextGeneration).isEqualTo(CellState.DEAD);
     }
 }

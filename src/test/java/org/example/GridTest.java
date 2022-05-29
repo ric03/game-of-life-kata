@@ -9,7 +9,7 @@ class GridTest {
     Grid uut = new Grid();
 
     @Test
-    void whenCreateGrid_thenCreateGridWithGivenSize() {
+    void whenCreateGrid_thenGridHasGivenSize() {
         // Act
         uut.createGrid(3, 5);
         // Assert

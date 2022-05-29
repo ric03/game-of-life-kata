@@ -90,7 +90,8 @@ class GameOfLifeTest {
                 List.of(LEFT_UP, LEFT_CENTER),
                 List.of(LEFT_BOTTOM, CENTER_BOTTOM),
                 List.of(RIGHT_BOTTOM, RIGHT_CENTER),
-                List.of(RIGHT_TOP, CENTER_TOP)
+                List.of(RIGHT_TOP, CENTER_TOP),
+                List.of(LEFT_UP, RIGHT_BOTTOM)
         );
     }
 

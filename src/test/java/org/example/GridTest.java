@@ -19,29 +19,31 @@ class GridTest {
     @Test
     void whenCreateGrid_thenArrayShouldContainDeadCells() {
         // Act
-        uut.createGrid(1,10);
+        uut.createGrid(2, 10);
         // Assert
         assertThat(uut.gridArray[0]).contains(CellState.DEAD);
+        assertThat(uut.gridArray[1]).contains(CellState.DEAD);
     }
 
     @Test
     void whenCreateGrid_thenArrayShouldNotContainLiveCells() {
         // Act
-        uut.createGrid(1,10);
+        uut.createGrid(2, 10);
         // Assert
-        assertThat(uut.gridArray[0]).doesNotContain(CellState.ALIVE);
+        assertThat(uut.gridArray[1]).doesNotContain(CellState.ALIVE);
     }
 
     @Test
     void whenGetCellState_withValidPosition_thenReturnCellState() {
         // Arrange
-        uut.createGrid(1,1);
-        uut.setLiveCell(0,0);
+        uut.createGrid(1, 1);
+        uut.setLiveCell(0, 0);
         // Act
         CellState cellState = uut.getCellState(0, 0);
         // Assert
         assertThat(cellState).isEqualTo(CellState.ALIVE);
     }
+
     @Test
     void whenGetCellState_withOutOfBoundPosition_thenReturnDead() {
         // Act

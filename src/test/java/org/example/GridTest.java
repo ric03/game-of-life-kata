@@ -45,9 +45,41 @@ class GridTest {
     }
 
     @Test
-    void whenGetCellState_withOutOfBoundPosition_thenReturnDead() {
+    void whenGetCellState_withXBeingOutOfBoundLowerLimit_thenReturnDead() {
+        // Arrange
+        uut.createGrid(1, 1);
         // Act
-        CellState cellState = uut.getCellState(-1, -1);
+        CellState cellState = uut.getCellState(-1, 0);
+        // Assert
+        assertThat(cellState).isEqualTo(CellState.DEAD);
+    }
+
+    @Test
+    void whenGetCellState_withXBeingOutOfBoundUpperLimit_thenReturnDead() {
+        // Arrange
+        uut.createGrid(1, 1);
+        // Act
+        CellState cellState = uut.getCellState(1, 0);
+        // Assert
+        assertThat(cellState).isEqualTo(CellState.DEAD);
+    }
+
+    @Test
+    void whenGetCellState_withYBeingOutOfBoundLowerLimit_thenReturnDead() {
+        // Arrange
+        uut.createGrid(1, 1);
+        // Act
+        CellState cellState = uut.getCellState(0, -1);
+        // Assert
+        assertThat(cellState).isEqualTo(CellState.DEAD);
+    }
+
+    @Test
+    void whenGetCellState_withYBeingOutOfBoundUpperLimit_thenReturnDead() {
+        // Arrange
+        uut.createGrid(1, 1);
+        // Act
+        CellState cellState = uut.getCellState(0, 1);
         // Assert
         assertThat(cellState).isEqualTo(CellState.DEAD);
     }

@@ -6,6 +6,13 @@ public class Grid {
 
     CellState[][] gridArray;
 
+    Grid() {
+    }
+
+    Grid(int x, int y) {
+        this.createGrid(x, y);
+    }
+
     void createGrid(int x, int y) {
         gridArray = new CellState[x][y];
 

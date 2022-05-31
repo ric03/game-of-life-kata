@@ -148,4 +148,33 @@ class GameOfLifeTest {
         // Assert
         assertThat(cellStateInNextGeneration).isEqualTo(CellState.DEAD);
     }
+
+    @Test
+    void whenCalculateNextGeneration_thenReturnNewGrid() {
+        // Act
+        Grid result = uut.calculateNextGeneration();
+        // Assert
+        assertThat(result)
+                .isNotSameAs(uut.grid)
+                .isInstanceOf(Grid.class);
+    }
+
+    @Test
+    void whenCalculateNextGeneration_with_thenReturnNewGridWithCorrectCellStates() {
+        // Arrange
+        uut.grid.createGrid(3,3);
+        uut.grid.setLiveCell(1,0);
+        uut.grid.setLiveCell(1,1);
+        uut.grid.setLiveCell(0,1);
+        // Act
+        Grid result = uut.calculateNextGeneration();
+        // Assert
+        Grid expected = new Grid(3,3);
+        expected.setLiveCell(0,0);
+        expected.setLiveCell(1,0);
+        expected.setLiveCell(1,1);
+        expected.setLiveCell(0,1);
+
+        assertThat(result).usingRecursiveComparison().isEqualTo(expected);
+    }
 }

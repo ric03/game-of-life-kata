@@ -41,4 +41,17 @@ public class GameOfLife {
             return CellState.ALIVE;
         }
     }
+
+    public Grid calculateNextGeneration() {
+        Grid newGrid = new Grid();
+        newGrid.createGrid(this.grid.gridArray.length, this.grid.gridArray[0].length);
+
+        for(int x = 0; x < this.grid.gridArray.length; x++) {
+            for(int y = 0; y < this.grid.gridArray[0].length; y++) {
+                newGrid.gridArray[x][y] = this.getCellStateForNextGeneration(x, y);
+            }
+        }
+
+        return newGrid;
+    }
 }

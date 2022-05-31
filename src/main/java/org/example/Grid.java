@@ -9,8 +9,8 @@ public class Grid {
     void createGrid(int x, int y) {
         gridArray = new CellState[x][y];
 
-        for (int _x = 0; _x < x; _x++) {
-            Arrays.fill(gridArray[_x], CellState.DEAD);
+        for (int i = 0; i < x; i++) {
+            Arrays.fill(gridArray[i], CellState.DEAD);
         }
     }
 

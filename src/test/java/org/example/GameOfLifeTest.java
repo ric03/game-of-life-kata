@@ -1,6 +1,5 @@
 package org.example;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -22,13 +21,7 @@ class GameOfLifeTest {
     private static final Position RIGHT_CENTER = new Position(2, 1);
     private static final Position RIGHT_BOTTOM = new Position(2, 2);
 
-    GameOfLife uut;
-
-    @BeforeEach
-    void setup() {
-        uut = new GameOfLife();
-        uut.grid.createGrid(3, 3);
-    }
+    GameOfLife uut = new GameOfLife();
 
     @Test
     void gameOfLife_shouldBeCreated() {
@@ -54,11 +47,12 @@ class GameOfLifeTest {
     @MethodSource
     void whenGetCellStateForNextGeneration_withFewerThanTwoLiveNeighbors_thenAnyLifeCellDies(Position positionOfSurroundingLiveCell) {
         // Arrange
-        uut.grid.setLiveCell(positionOfSurroundingLiveCell.x(), positionOfSurroundingLiveCell.y());
-        uut.grid.setLiveCell(CENTER.x(), CENTER.y());
+        final var grid = new Grid(3, 3);
+        grid.setLiveCell(positionOfSurroundingLiveCell.x(), positionOfSurroundingLiveCell.y());
+        grid.setLiveCell(CENTER.x(), CENTER.y());
 
         // Act
-        var cellStateInNextGeneration = uut.getCellStateForNextGeneration(1, 1);
+        var cellStateInNextGeneration = uut.getCellStateForNextGeneration(grid, 1, 1);
         // Assert
         assertThat(cellStateInNextGeneration).isEqualTo(CellState.DEAD);
     }
@@ -75,12 +69,13 @@ class GameOfLifeTest {
     @MethodSource
     void whenGetCellStateForNextGeneration_withMoreThanThreeLiveNeighbors_thenCellDies(List<Position> positionsOfSurroundingLiveCells) {
         // Arrange
+        final var grid = new Grid(3, 3);
         for (var pos : positionsOfSurroundingLiveCells) {
-            uut.grid.setLiveCell(pos.x(), pos.y());
+            grid.setLiveCell(pos.x(), pos.y());
         }
-        uut.grid.setLiveCell(CENTER.x(), CENTER.y());
+        grid.setLiveCell(CENTER.x(), CENTER.y());
         // Act
-        var cellStateInNextGeneration = uut.getCellStateForNextGeneration(1, 1);
+        var cellStateInNextGeneration = uut.getCellStateForNextGeneration(grid, 1, 1);
         // Assert
         assertThat(cellStateInNextGeneration).isEqualTo(CellState.DEAD);
     }
@@ -99,13 +94,14 @@ class GameOfLifeTest {
     @MethodSource
     void whenGetCellStateForNextGeneration_withTwoLiveNeighbors_thenCellLivesOn(List<Position> positionsOfSurroundingLiveCells) {
         // Arrange
+        final var grid = new Grid(3, 3);
         for (var pos : positionsOfSurroundingLiveCells) {
-            uut.grid.setLiveCell(pos.x(), pos.y());
+            grid.setLiveCell(pos.x(), pos.y());
         }
-        uut.grid.setLiveCell(CENTER.x(), CENTER.y());
+        grid.setLiveCell(CENTER.x(), CENTER.y());
 
         // Act
-        var cellStateInNextGeneration = uut.getCellStateForNextGeneration(1, 1);
+        var cellStateInNextGeneration = uut.getCellStateForNextGeneration(grid, 1, 1);
         // Assert
         assertThat(cellStateInNextGeneration).isEqualTo(CellState.ALIVE);
     }
@@ -113,13 +109,14 @@ class GameOfLifeTest {
     @Test
     void whenGetCellStateForNextGeneration_withThreeLiveNeighbors_thenCellLivesOn() {
         // Arrange
-        uut.grid.setLiveCell(0, 0);
-        uut.grid.setLiveCell(0, 1);
-        uut.grid.setLiveCell(0, 2);
-        uut.grid.setLiveCell(1, 1);
+        final var grid = new Grid(3, 3);
+        grid.setLiveCell(0, 0);
+        grid.setLiveCell(0, 1);
+        grid.setLiveCell(0, 2);
+        grid.setLiveCell(1, 1);
 
         // Act
-        var cellStateInNextGeneration = uut.getCellStateForNextGeneration(1, 1);
+        var cellStateInNextGeneration = uut.getCellStateForNextGeneration(grid, 1, 1);
         // Assert
         assertThat(cellStateInNextGeneration).isEqualTo(CellState.ALIVE);
     }
@@ -127,12 +124,13 @@ class GameOfLifeTest {
     @Test
     void whenGetCellStateForNextGeneration_withExactlyThreeLiveNeighbors_thenDeadCellBecomesAlive() {
         // Arrange
-        uut.grid.setLiveCell(0, 0);
-        uut.grid.setLiveCell(0, 1);
-        uut.grid.setLiveCell(0, 2);
+        final var grid = new Grid(3, 3);
+        grid.setLiveCell(0, 0);
+        grid.setLiveCell(0, 1);
+        grid.setLiveCell(0, 2);
 
         // Act
-        var isCellAliveInNextGeneration = uut.getCellStateForNextGeneration(1, 1);
+        var isCellAliveInNextGeneration = uut.getCellStateForNextGeneration(grid, 1, 1);
         // Assert
         assertThat(isCellAliveInNextGeneration).isEqualTo(CellState.ALIVE);
     }
@@ -140,41 +138,48 @@ class GameOfLifeTest {
     @Test
     void whenGetCellStateForNextGeneration_withTwoLiveNeighbors_thenDeadCellStaysDead() {
         // Arrange
-        uut.grid.setLiveCell(0, 0);
-        uut.grid.setLiveCell(0, 1);
+        final var grid = new Grid(3, 3);
+        grid.setLiveCell(0, 0);
+        grid.setLiveCell(0, 1);
 
         // Act
-        var cellStateInNextGeneration = uut.getCellStateForNextGeneration(1, 1);
+        var cellStateInNextGeneration = uut.getCellStateForNextGeneration(grid, 1, 1);
         // Assert
         assertThat(cellStateInNextGeneration).isEqualTo(CellState.DEAD);
     }
 
     @Test
     void whenCalculateNextGeneration_thenReturnNewGrid() {
+        // Arrange
+        final var grid = new Grid(3, 3);
+
         // Act
-        Grid result = uut.calculateNextGeneration();
+        Grid nextGeneration = uut.calculateNextGeneration(grid);
+
         // Assert
-        assertThat(result)
-                .isNotSameAs(uut.grid)
+        assertThat(nextGeneration)
+                .isNotSameAs(grid)
                 .isInstanceOf(Grid.class);
     }
 
     @Test
     void whenCalculateNextGeneration_with_thenReturnNewGridWithCorrectCellStates() {
         // Arrange
-        uut.grid.createGrid(3,3);
-        uut.grid.setLiveCell(1,0);
-        uut.grid.setLiveCell(1,1);
-        uut.grid.setLiveCell(0,1);
-        // Act
-        Grid result = uut.calculateNextGeneration();
-        // Assert
-        Grid expected = new Grid(3,3);
-        expected.setLiveCell(0,0);
-        expected.setLiveCell(1,0);
-        expected.setLiveCell(1,1);
-        expected.setLiveCell(0,1);
+        final var grid = new Grid(3, 3);
+        grid.setLiveCell(1, 0);
+        grid.setLiveCell(1, 1);
+        grid.setLiveCell(0, 1);
 
-        assertThat(result).usingRecursiveComparison().isEqualTo(expected);
+        // Act
+        Grid nextGeneration = uut.calculateNextGeneration(grid);
+
+        // Assert
+        Grid expected = new Grid(3, 3);
+        expected.setLiveCell(0, 0);
+        expected.setLiveCell(1, 0);
+        expected.setLiveCell(1, 1);
+        expected.setLiveCell(0, 1);
+
+        assertThat(nextGeneration).usingRecursiveComparison().isEqualTo(expected);
     }
 }

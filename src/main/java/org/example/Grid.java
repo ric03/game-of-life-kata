@@ -26,10 +26,20 @@ public class Grid {
     }
 
     CellState getCellState(int x, int y) {
-        int length = this.gridArray.length;
-        if (x < 0 || y < 0 || x >= length || y >= length) {
+        int xLength = this.getHorizontalLength();
+        int yLength = this.getVerticalLength();
+
+        if (x < 0 || y < 0 || x >= xLength || y >= yLength) {
             return CellState.DEAD;
         }
         return gridArray[x][y];
+    }
+
+    public int getVerticalLength() {
+        return gridArray[0].length;
+    }
+
+    public int getHorizontalLength() {
+        return gridArray.length;
     }
 }

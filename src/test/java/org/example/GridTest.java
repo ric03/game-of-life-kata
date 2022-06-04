@@ -34,12 +34,34 @@ class GridTest {
     }
 
     @Test
-    void whenGetCellState_withValidPosition_thenReturnCellState() {
+    void givenValidPositionOnSquareGrid_whenGetCellState_thenReturnCellState() {
         // Arrange
         uut.createGrid(1, 1);
         uut.setLiveCell(0, 0);
         // Act
         CellState cellState = uut.getCellState(0, 0);
+        // Assert
+        assertThat(cellState).isEqualTo(CellState.ALIVE);
+    }
+
+    @Test
+    void givenValidPositionOnHorizontallyLongerGrid_whenGetCellState_thenReturnCellState() {
+        // Arrange
+        uut.createGrid(3, 1);
+        uut.setLiveCell(2, 0);
+        // Act
+        CellState cellState = uut.getCellState(2, 0);
+        // Assert
+        assertThat(cellState).isEqualTo(CellState.ALIVE);
+    }
+
+    @Test
+    void givenValidPositionOnVerticallyLongerGrid_whenGetCellState_thenReturnCellState() {
+        // Arrange
+        uut.createGrid(1, 3);
+        uut.setLiveCell(0, 2);
+        // Act
+        CellState cellState = uut.getCellState(0, 2);
         // Assert
         assertThat(cellState).isEqualTo(CellState.ALIVE);
     }

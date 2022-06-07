@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.util.Arrays;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class GridTest {
@@ -112,5 +114,18 @@ class GridTest {
         CellState cellState = uut.getCellState(x, y);
         // Assert
         assertThat(cellState).isEqualTo(CellState.DEAD);
+    }
+
+    // TODO this test may be flaky due to the random element !
+    @Test
+    void given_whenRandomize_thenGridShouldContainDeadAndLiveCells() {
+        // Arrange
+        uut.createGrid(3, 3);
+        // Act
+        uut.randomize();
+        // Assert
+        assertThat(Arrays.stream(uut.getGridArray()).flatMap(Arrays::stream))
+                .contains(CellState.DEAD)
+                .contains(CellState.ALIVE);
     }
 }

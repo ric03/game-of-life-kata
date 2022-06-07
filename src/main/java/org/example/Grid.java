@@ -59,4 +59,13 @@ public class Grid {
     protected CellState[][] getGridArray() {
         return gridArray;
     }
+
+    public void randomize() {
+        for (int x = 0; x < this.getHorizontalLength(); x++) {
+            for (int y = 0; y < this.getVerticalLength(); y++) {
+                CellState randomCellState = Math.random() < .5 ? CellState.ALIVE : CellState.DEAD;
+                this.setState(x, y, randomCellState);
+            }
+        }
+    }
 }

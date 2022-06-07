@@ -41,8 +41,7 @@ public class GameOfLife {
     }
 
     public Grid calculateNextGeneration(Grid grid) {
-        Grid newGrid = new Grid();
-        newGrid.createGrid(grid.gridArray.length, grid.gridArray[0].length);
+        Grid newGrid = new Grid(grid.getHorizontalLength(), grid.getVerticalLength());
 
         for(int x = 0; x < grid.gridArray.length; x++) {
             for(int y = 0; y < grid.gridArray[0].length; y++) {

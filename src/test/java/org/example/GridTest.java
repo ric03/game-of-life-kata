@@ -25,8 +25,7 @@ class GridTest {
         // Act
         uut.createGrid(2, 10);
         // Assert
-        assertThat(uut.getGridArray()[0]).contains(CellState.DEAD);
-        assertThat(uut.getGridArray()[1]).contains(CellState.DEAD);
+        assertThat(Arrays.stream(uut.getGridArray()).flatMap(Arrays::stream)).contains(CellState.DEAD);
     }
 
     @Test
@@ -34,8 +33,7 @@ class GridTest {
         // Act
         uut.createGrid(2, 10);
         // Assert
-        assertThat(uut.getGridArray()[0]).doesNotContain(CellState.ALIVE);
-        assertThat(uut.getGridArray()[1]).doesNotContain(CellState.ALIVE);
+        assertThat(Arrays.stream(uut.getGridArray()).flatMap(Arrays::stream)).doesNotContain(CellState.ALIVE);
     }
 
     @Test

@@ -35,10 +35,16 @@ public class Grid {
         return gridArray[x][y];
     }
 
+    /**
+     * @return vertical length (y)
+     */
     public int getVerticalLength() {
         return gridArray[0].length;
     }
 
+    /**
+     * @return horizontal length (x)
+     */
     public int getHorizontalLength() {
         return gridArray.length;
     }

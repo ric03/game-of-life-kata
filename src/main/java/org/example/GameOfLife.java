@@ -52,4 +52,18 @@ public class GameOfLife {
 
         return newGrid;
     }
+
+    public void execute(int iterations) {
+        final GridConsoleRenderer gridConsoleRenderer = new GridConsoleRenderer();
+        Grid grid = new Grid(8, 4);
+        grid.randomize();
+        
+        for (int i = 0; i < iterations; i++) {
+            String output = gridConsoleRenderer.render(grid);
+            System.out.println("Generation: " + i);
+            System.out.println(output);
+            grid = calculateNextGeneration(grid);
+
+        }
+    }
 }

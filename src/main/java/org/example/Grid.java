@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Grid {
 
-    CellState[][] gridArray;
+    private CellState[][] gridArray;
 
     Grid() {
     }
@@ -19,6 +19,10 @@ public class Grid {
         for (int i = 0; i < x; i++) {
             Arrays.fill(gridArray[i], CellState.DEAD);
         }
+    }
+
+    void setState(int x, int y, CellState newState) {
+        gridArray[x][y] = newState;
     }
 
     void setLiveCell(int x, int y) {
@@ -47,5 +51,12 @@ public class Grid {
      */
     public int getHorizontalLength() {
         return gridArray.length;
+    }
+
+    /**
+     * Only for testing purposes
+     */
+    protected CellState[][] getGridArray() {
+        return gridArray;
     }
 }

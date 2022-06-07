@@ -15,7 +15,7 @@ class GridTest {
         // Act
         uut.createGrid(3, 5);
         // Assert
-        assertThat(uut.gridArray).hasDimensions(3, 5);
+        assertThat(uut.getGridArray()).hasDimensions(3, 5);
     }
 
     @Test
@@ -23,8 +23,8 @@ class GridTest {
         // Act
         uut.createGrid(2, 10);
         // Assert
-        assertThat(uut.gridArray[0]).contains(CellState.DEAD);
-        assertThat(uut.gridArray[1]).contains(CellState.DEAD);
+        assertThat(uut.getGridArray()[0]).contains(CellState.DEAD);
+        assertThat(uut.getGridArray()[1]).contains(CellState.DEAD);
     }
 
     @Test
@@ -32,7 +32,8 @@ class GridTest {
         // Act
         uut.createGrid(2, 10);
         // Assert
-        assertThat(uut.gridArray[1]).doesNotContain(CellState.ALIVE);
+        assertThat(uut.getGridArray()[0]).doesNotContain(CellState.ALIVE);
+        assertThat(uut.getGridArray()[1]).doesNotContain(CellState.ALIVE);
     }
 
     @Test
